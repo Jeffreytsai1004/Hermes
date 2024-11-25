@@ -1,73 +1,73 @@
-# <img src="assets/hermes_icon.png?raw=true" width="24"> Hermes URLs for Unreal Engine
+# [![](https://github.com/Jeffreytsai1004/Hermes/raw/main/assets/hermes_icon.png?raw=true)](https://github.com/Jeffreytsai1004/Hermes/blob/main/assets/hermes_icon.png?raw=true)Unreal Engine 的 Hermes URL
 
-Hermes URLs is a plugin for Unreal Engine that out of the box allows you to copy URLs to arbitrary assets in your project and share them with your team e.g. through Slack. Those links will then directly open the Unreal Editor to the linked asset.
+[](https://github.com/Jeffreytsai1004/Hermes#-hermes-urls-for-unreal-engine)
 
-In addition, Hermes provides easy-to-use APIs to register your own endpoints, so that you can create other direct deep links into the editor. E.g. you could create links that run automatic tests, link directly to a settings page, or whatever else strikes your fancy!
+Hermes URLs 是虚幻引擎的一个插件，开箱即用，允许您将 URL 复制到项目中的任意资产，并与您的团队共享它们，例如通过 Slack。然后，这些链接将直接打开指向链接资源的虚幻编辑器。
 
-Big thanks to Krista A. Leemhuis for the amazing icons!
+此外，Hermes 还提供了易于使用的 API 来注册您自己的终端节点，以便您可以在编辑器中创建其他直接深度链接。例如，您可以创建运行自动测试的链接，直接链接到设置页面，或者其他任何您喜欢的东西！
 
+非常感谢 Krista A. Leemhuis 的精彩图标！
 
-## Setup
+## 设置
 
-Hermes officially supports UE5 and is backwards compatible with UE4 version 4.27. Pull requests to support older versions are welcome.
+[](https://github.com/Jeffreytsai1004/Hermes#setup)
 
-1. Clone this repository into your project's `Plugins` folder
-1. Start your editor - the URL is automatically registered when the editor first starts
+Hermes 正式支持 UE5，并向后兼容 UE4 4.27 版。欢迎支持旧版本的拉取请求。
 
-By default, Hermes will register URIs that match the project name of your project. If you need more control over the scheme used by these URIs, you can use the `HermesBranchSupport` plugin which lives next to `HermesCore`, which lets you include the branch name in the URI scheme. You'll need to enable `HermesBranchSupport` in your .uproject, and then you can go to Edit > Preferences and find "Hermes URLs - Branch Support" under Plugins to configure it.
+1.  将此仓库克隆到项目的文件夹中`Plugins`
+2.  启动编辑器 - 编辑器首次启动时会自动注册 URL
 
-Hermes relies on [hermes_urls][hermes_urls] to register with the OS and dispatch URL requests. It's a small Rust project, and its binaries are checked in to this repository (in [HermesCore/Source/HermesURLHandler][hermesurlhandler]) for convenience's sake, but feel free to review the source and build your own if downloading EXE files from the internet puts you at (understandable) unease.
+默认情况下，Hermes 将注册与项目名称匹配的 URI。如果您需要对这些 URI 使用的方案进行更多控制，您可以使用位于 旁边的插件，它允许您在 URI 方案中包含分支名称。你需要在 .uproject 中启用，然后你可以转到 Edit > Preferences，然后在 Plugins 找到“Hermes URLs - Branch Support”进行配置。`HermesBranchSupport``HermesCore``HermesBranchSupport`
 
+Hermes 依靠 [hermes\_urls](https://github.com/jorgenpt/hermes_urls) 向 OS 注册并调度 URL 请求。这是一个小型的 Rust 项目，为了方便起见，它的二进制文件被签入到这个仓库中（在 [HermesCore/Source/HermesURLHandler](https://github.com/Jeffreytsai1004/Hermes/blob/main/HermesCore/Source/HermesURLHandler) 中），但如果从互联网下载 EXE 文件让你感到（可以理解的）不安，请随时查看源代码并构建你自己的。
 
-## Using
+## 用
 
-Once you've set up Hermes, you should be able to right click any asset in the content browser and see a new "*Copy URL that reveals asset*" option:
+[](https://github.com/Jeffreytsai1004/Hermes#using)
 
-[<img src="README_contentbrowser.png?raw=true" width=50%>](README_contentbrowser.png?raw=true)
+设置 Hermes 后，您应该能够在内容浏览器中右键单击任何资源，并看到一个新的“_Copy URL that reveal asset（显示资源的复制 URL_）”选项：
 
-Similarly, when you've opened any asset in the asset editor, you should see a new "*Copy URL that opens asset*" option in the "Asset" option from the menu bar:
+[![](https://github.com/Jeffreytsai1004/Hermes/raw/main/README_contentbrowser.png?raw=true)](https://github.com/Jeffreytsai1004/Hermes/blob/main/README_contentbrowser.png?raw=true)
 
-[<img src="README_asseteditor.png?raw=true" width=50%>](README_asseteditor.png?raw=true)
+同样，当您在资源编辑器中打开任何资源时，您应该会在菜单栏的“资源”选项中看到一个新的“_复制打开资源的 URL_”选项：
 
+[![](https://github.com/Jeffreytsai1004/Hermes/raw/main/README_asseteditor.png?raw=true)](https://github.com/Jeffreytsai1004/Hermes/blob/main/README_asseteditor.png?raw=true)
 
-## Extending
+## 扩展
 
-Hermes is intended to be pretty customizable and extendible. Feel free to [reach out][email] if you have any questions, or send a pull request if you think your functionality should be a part of the core Hermes experience!
+[](https://github.com/Jeffreytsai1004/Hermes#extending)
 
-### Creating custom URLs with your own functionality
+Hermes 旨在实现高度可定制和扩展。如果您有任何问题，请随时[与我们联系](mailto:jorgen@tjer.no)，如果您认为您的功能应该成为 Hermes 核心体验的一部分，请发送拉取请求！
 
-To see how to create your own handler for custom URLs you can look at [HermesContentEndpoint.cpp][hermescontentendpoint-cpp], which is the implementation of the asset links. The editor integration that lets you copy those links to the clipboard lives in [HermesContentEndpointEditorExtension.cpp][hermescontentendpointeditorextension-cpp].
+### 使用您自己的功能创建自定义 URL
 
-You can create a similar module in your own project and depend on `HermesServer` from your module, and you should be good to go.
+[](https://github.com/Jeffreytsai1004/Hermes#creating-custom-urls-with-your-own-functionality)
 
-### Controlling what URL scheme / protocol your links have
+要了解如何为自定义 URL 创建自己的处理程序，您可以查看 [HermesContentEndpoint.cpp](https://github.com/Jeffreytsai1004/Hermes/blob/main/HermesCore/Source/HermesContentEndpoint/Private/HermesContentEndpoint.cpp)，即 asset links 的实现。允许您将这些链接复制到剪贴板的编辑器集成位于 [HermesContentEndpointEditorExtension.cpp](https://github.com/Jeffreytsai1004/Hermes/blob/main/HermesCore/Source/HermesContentEndpoint/Private/HermesContentEndpointEditorExtension.cpp) 中。
 
-If you want to have more control over the URL scheme / protocol than `Hermes` and `HermesBranchSupport` gives you, you can create your own `IHermesUriSchemeProvider`. It is a very small C++ interface that you register as a modular feature -- all you need to implement is a `TOptional<FString> GetPreferredScheme()` method. You can use [HermesBranchSupport.cpp][hermesbranchsupport-cpp] as a starting point for developing your own `IHermesUriSchemeProvider` to override the URI scheme used.
+你可以在自己的项目中创建一个类似的模块，并依赖于你的模块，你应该很高兴。`HermesServer`
 
+### 控制您的链接具有的 URL 方案/协议
 
-## License
+[](https://github.com/Jeffreytsai1004/Hermes#controlling-what-url-scheme--protocol-your-links-have)
 
-[The icon](assets/hermes_icon.png) is copyright (c) 2022 [Jørgen P. Tjernø][email]. All Rights Reserved.
+如果您想对 URL 方案/协议有更多的控制权，而不是 and 为您提供的，您可以创建自己的 .它是一个非常小的 C++ 接口，您可以将其注册为模块化功能 —— 您需要实现的只是一个方法。您可以使用 [HermesBranchSupport.cpp](https://github.com/Jeffreytsai1004/Hermes/blob/main/HermesBranchSupport/Source/HermesBranchSupport/Private/HermesBranchSupport.cpp) 作为开发自己的 URI 方案的起点，以覆盖所使用的 URI 方案。`Hermes``HermesBranchSupport``IHermesUriSchemeProvider``TOptional<FString> GetPreferredScheme()``IHermesUriSchemeProvider`
 
-Hermes URLs is licensed under either of
+## 许可证
 
- * Apache License, Version 2.0
-   ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license
-   ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+[](https://github.com/Jeffreytsai1004/Hermes#license)
 
-at your option.
+[该图标](https://github.com/Jeffreytsai1004/Hermes/blob/main/assets/hermes_icon.png)版权归 （c） 2022 [Jørgen P. Tjernø](mailto:jorgen@tjer.no) 所有。保留所有权利。
 
+Hermes URLs 根据以下任一
 
-## Contribution
+-   Apache 许可证，版本 2.0 （[许可证 - APACHE](https://github.com/Jeffreytsai1004/Hermes/blob/main/LICENSE-APACHE) 或 [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0))
+-   MIT 许可证 （[许可证 - MIT](https://github.com/Jeffreytsai1004/Hermes/blob/main/LICENSE-MIT) 或 [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT))
 
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
-dual licensed as above, without any additional terms or conditions.
+由您选择。
 
-[hermes_urls]: https://github.com/jorgenpt/hermes_urls
-[hermesurlhandler]: HermesCore/Source/HermesURLHandler
-[hermescontentendpoint-cpp]: HermesCore/Source/HermesContentEndpoint/Private/HermesContentEndpoint.cpp
-[hermescontentendpointeditorextension-cpp]: HermesCore/Source/HermesContentEndpoint/Private/HermesContentEndpointEditorExtension.cpp
-[hermesbranchsupport-cpp]: HermesBranchSupport/Source/HermesBranchSupport/Private/HermesBranchSupport.cpp
-[email]: mailto:jorgen@tjer.no
+## 贡献
+
+[](https://github.com/Jeffreytsai1004/Hermes#contribution)
+
+除非您另有明确说明，否则任何有意提交的贡献 为了包含在您的作品中，如 Apache-2.0 许可证中所定义，应为 双重许可，无任何其他附加条款或条件。
